@@ -1,0 +1,228 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Arial-BoldMT;\f1\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red164\green8\blue3;\red134\green19\blue62;\red198\green50\blue253;
+\red174\green0\blue240;\red133\green0\blue175;\red102\green0\blue141;\red77\green0\blue105;\red5\green68\blue254;
+\red155\green44\blue3;}
+{\*\expandedcolortbl;;\cssrgb\c71055\c10387\c0;\cssrgb\c60282\c14051\c30968;\cssrgb\c82670\c34053\c99466;
+\cssrgb\c74609\c21796\c95404;\cssrgb\c59982\c16236\c74118;\cssrgb\c48169\c12809\c62212;\cssrgb\c37964\c9215\c48780;\cssrgb\c0\c38136\c99824;
+\cssrgb\c67803\c24280\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww28600\viewh15260\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs28 \cf0 \ul \ulc0 Queries\
+
+\f1\b0\fs24 \ulnone \
+\
+ 
+\f0\b 1. View all employees\
+
+\f1\b0 \
+\cf2 SELECT * FROM employees;\cf0 \
+\
+
+\f0\b 2. View all departments
+\f1\b0 \
+\
+\cf3 SELECT * FROM departments;\cf0 \
+\
+
+\f0\b 3. Employees with salary greater than 60000
+\f1\b0 \
+\
+\cf4 SELECT * \
+FROM employees\
+WHERE salary > 60000;\
+\cf0 \
+
+\f0\b 4. Employees ordered by salary (highest first)
+\f1\b0 \
+\
+\cf5 SELECT *\
+FROM employees\
+ORDER BY salary DESC;\
+\cf0 \
+
+\f0\b  5. Count total employees\
+
+\f1\b0 \
+\cf5 SELECT COUNT(*) AS total_employees\
+FROM employees;\
+\cf0 \
+
+\f0\b 6. Average salary of employees
+\f1\b0 \
+\cf6 \
+SELECT AVG(salary) AS average_salary\
+FROM employees;\
+\cf0 \
+
+\f0\b 7. Maximum salary
+\f1\b0 \
+\
+\cf6 SELECT MAX(salary) AS highest_salary\
+FROM employees;\
+\cf0 \
+
+\f0\b 8.Minimum salary
+\f1\b0 \
+\
+\cf6 SELECT MIN(salary) AS lowest_salary\
+FROM employees;\cf0 \
+\
+
+\f0\b 9. Employee count by department\
+
+\f1\b0 \
+\cf6 SELECT dept_id, COUNT(*) AS employee_count\
+FROM employees\
+GROUP BY dept_id;\cf0 \
+\
+
+\f0\b 10. Departments having more than 1 employee
+\f1\b0 \
+\
+\cf6 SELECT dept_id, COUNT(*) AS total\
+FROM employees\
+GROUP BY dept_id\
+HAVING COUNT(*) > 1;\cf0 \
+\
+
+\f0\b 11. Employees with their department name (JOIN)
+\f1\b0 \
+\
+\cf6 SELECT e.first_name, e.last_name, d.dept_name\
+FROM employees e\
+JOIN departments d\
+ON e.dept_id = d.dept_id;\cf0 \
+\
+
+\f0\b 12. List employees working in IT department
+\f1\b0 \
+\
+\cf7 SELECT e.first_name, e.last_name\
+FROM employees e\
+JOIN departments d\
+ON e.dept_id = d.dept_id\
+WHERE d.dept_name = 'IT';\cf0 \
+\
+
+\f0\b 13. Employees earning above average salary (Subquery)
+\f1\b0 \
+\
+\cf6 SELECT first_name, salary\
+FROM employees\
+WHERE salary > (\
+    SELECT AVG(salary) FROM employees\
+);\cf0 \
+\
+
+\f0\b 14. Employees in department 1
+\f1\b0 \
+\
+\cf6 SELECT *\
+FROM employees\
+WHERE dept_id = 1;\cf0 \
+\
+
+\f0\b 15. Total salary expense per department
+\f1\b0 \
+\
+\cf6 SELECT dept_id, SUM(salary) AS total_salary\
+FROM employees\
+GROUP BY dept_id;\cf0 \
+\
+
+\f0\b 16. Employees whose salary is between 55000 and 75000
+\f1\b0 \
+\
+\cf7 SELECT *\
+FROM employees\
+WHERE salary BETWEEN 55000 AND 75000;\cf0 \
+\
+
+\f0\b 17. Employees whose first name starts with 'S'
+\f1\b0 \
+\
+\cf6 SELECT *\
+FROM employees\
+WHERE first_name LIKE 'S%';\cf0 \
+\
+
+\f0\b 18. Departments with employee names
+\f1\b0 \
+\
+\cf6 SELECT d.dept_name, e.first_name\
+FROM departments d\
+LEFT JOIN employees e\
+ON d.dept_id = e.dept_id;\
+\cf0 \
+
+\f0\b 19. Total number of departments
+\f1\b0 \
+\
+\cf7 SELECT COUNT(*) AS total_departments\
+FROM departments;\cf0 \
+\
+
+\f0\b 20. Employees not in HR department\
+
+\f1\b0 \
+\cf8 SELECT e.first_name, e.last_name\
+FROM employees e\
+JOIN departments d\
+ON e.dept_id = d.dept_id\
+WHERE d.dept_name <> 'HR';\cf0 \
+\
+\
+\
+
+\f0\b 21. Employees with department names
+\f1\b0 \
+\cf9 \
+SELECT e.first_name, d.dept_name\
+FROM employees e\
+JOIN departments d\
+ON e.dept_id = d.dept_id;\cf10 \
+\cf0 \
+
+\f0\b 22.Employees who applied for leave
+\f1\b0 \
+\
+\cf9 SELECT e.first_name, l.leave_type\
+FROM employees e\
+JOIN leave_requests l\
+ON e.emp_id = l.emp_id;\cf0 \
+\
+
+\f0\b 23. Average employee salary\
+
+\f1\b0 \
+\cf9 SELECT AVG(salary) FROM employees;\cf2 \
+\cf0 \
+
+\f0\b 24. Employees with salary above average\
+
+\f1\b0 \
+\cf9 SELECT first_name, salary\
+FROM employees\
+WHERE salary > (SELECT AVG(salary) FROM employees);\
+\cf0 \
+
+\f0\b 25. Attendance records\
+
+\f1\b0 \
+\cf9 SELECT e.first_name, a.work_date\
+FROM employees e\
+JOIN attendance a\
+ON e.emp_id = a.emp_id;\
+
+\f0\b \cf0 \
+26. Total salary by department\
+
+\f1\b0 \
+\cf9 SELECT dept_id, SUM(salary)\
+FROM employees\
+GROUP BY dept_id;\cf0 \
+\
+\
+}
